@@ -41,7 +41,7 @@ function getConfig() {
     port: Number(process.env.PORT) || 3001,
     dbPath: resolveDbPath(),
     jwtSecret: process.env.JWT_SECRET || 'dev-jwt-secret-seng383-g7',
-    aiMode: (process.env.AI_MODE || 'mock').toLowerCase(),
+    aiMode: process.env.NODE_ENV === 'test' ? 'mock' : (process.env.AI_MODE || 'mock').toLowerCase(),
     geminiApiKey: process.env.GEMINI_API_KEY || '',
     geminiModel: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
   };
