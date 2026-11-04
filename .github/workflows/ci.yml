@@ -10,6 +10,8 @@ jobs:
   server:
     name: Server tests (Jest + Supertest)
     runs-on: ubuntu-latest
+    env:
+      AI_MODE: mock
     defaults:
       run:
         working-directory: server
