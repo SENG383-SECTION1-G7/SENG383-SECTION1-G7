@@ -18,7 +18,8 @@
 **Project in one sentence:** A web-based decision support platform that brings parents, specialists and children together around one shared schedule, task list and record of observations, with a role-based AI summary that supports but never makes decisions.  
 **Jira project key:** SSG123  
 **Jira board link:** https://cankayaseng2026.atlassian.net/jira/software/projects/SSG123/boards/3  
-**Connected GitHub repository:** https://github.com/krmnlhmza/SENG383-SECTION1-G7  
+**Connected GitHub repository:** https://github.com/SENG383-SECTION1-G7/SENG383-SECTION1-G7
+
 
 ![Jira–GitHub connection](img/jira-github-connection.png)
 
