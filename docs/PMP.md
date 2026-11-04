@@ -36,25 +36,28 @@
 
 ### Work Packages (Epics)
 
-| Epic | Owner | Number of tasks | Planned sprint(s) |
-|---|---|---|---|
-| M1 | | | |
-| M2 | | | |
-| M3 | | | |
-| M4 | | | |
-| M5 | | | |
-| M6 | | | |
-| M7 | | | |
-| M8 | | | |
+### Work Packages (M1–M8)
 
+| WP ID | Work Package Name | Requirements Covered | Owner | Number of Tasks | Planned Sprint |
+| :--- | :--- | :--- | :--- | :---: | :---: |
+| **M1** | Login and roles | FR-M1-01, FR-M1-02, FR-M1-03 | Hamza | 3 | Sprint 1 – Sprint 2 |
+| **M2** | Linking specialists | FR-M2-01, FR-M2-02, FR-M2-03, FR-M2-04, FR-M2-05 | Hamza | 5 | Sprint 2 |
+| **M3** | Weekly schedule | FR-M3-01, FR-M3-02, FR-M3-03 | Furkan | 3 | Sprint 2 |
+| **M4** | Tasks | FR-M4-01, FR-M4-02, FR-M4-03 | Hamza | 3 | Sprint 3 |
+| **M5** | Specialist entries | FR-M5-01, FR-M5-02, FR-M5-03 | Efekan | 3 | Sprint 3 |
+| **M6** | Documents | FR-M6-01, FR-M6-02, FR-M6-03 | Furkan | 3 | Sprint 3 |
+| **M7** | Weekly statistics | FR-M7-01, FR-M7-02 | Efekan | 2 | Sprint 4 |
+| **M8** | Role-based AI summary | FR-M8-01, FR-M8-02, FR-M8-03, FR-M8-04 | Hamza | 4 | Sprint 4 |
 ### Sprint Plan
 
-| Sprint | Weeks | Sprint goal | Ends with |
-|---|---|---|---|
-| Sprint 1 | | | Walking skeleton (v0.0), Week 6 |
-| Sprint 2 | | | Release v0.1, mid-term |
-| Sprint 3 | | | Release v0.2, Week 10 |
-| Sprint 4 | | | Release v1.0, final |
+### Sprint Plan (Sprint 1–4)
+
+| Sprint | Target Modules / Scope | Key Deliverables & Goals | Target Tag / Release |
+| :--- | :--- | :--- | :--- |
+| **Sprint 1** | Project Setup, SRS, SDD v1, PMP-1/2, Walking Skeleton (M1 Base & AI Mock) | `docs/SRS.md`, `docs/PMP.md` (PMP-1 & PMP-2), `docs/SDD.md` (v1), SQLite schema & seed, JWT Login API, Basic React Login UI, CI & Tests | `v0.0` (Walking Skeleton) |
+| **Sprint 2** | **M1** (Role permissions), **M2** (Linking specialists), **M3** (Weekly schedule) | Role-based screen/API guards, Parent-Specialist linking/unlinking flow, Shared weekly schedule creation & view, Unit/Integration tests | `v0.1` |
+| **Sprint 3** | **M4** (Tasks), **M5** (Specialist entries), **M6** (Documents) | Task assignment & completion flow, Specialist dated observations (with edit tracking), PDF/Image upload & access control, Tests | `v0.2` |
+| **Sprint 4** | **M7** (Weekly statistics), **M8** (Role-based AI summary), Final Polish | Weekly task completion rates (total & by area), Gemini AI role-based summaries with feedback ("helpful"/"incorrect"), SDD v2, Final E2E Tests | `v1.0` (Final Release) |
 
 ---
 
