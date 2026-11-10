@@ -55,11 +55,13 @@ body {
   font-weight: 600;
 }
 
-.field input {
+.field input,
+.field select {
   padding: 10px 12px;
   border: 1px solid #c7d1cd;
   border-radius: 8px;
   font-size: 0.95rem;
+  background: #ffffff;
 }
 
 .btn-primary {
@@ -134,4 +136,49 @@ body {
   color: #b42318;
   font-size: 0.9rem;
   margin: 8px 0;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.tab-active {
+  background: #175c4f;
+  color: #ffffff;
+  border-color: #175c4f;
+}
+
+.list-clean {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #ebefed;
+}
+
+.confirm-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+}
+
+.btn-danger {
+  background: #b42318;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
 }
