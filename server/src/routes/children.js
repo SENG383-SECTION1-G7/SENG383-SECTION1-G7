@@ -165,4 +165,116 @@ router.delete(
   },
 );
 
+router.get(
+  '/:childId/events',
+  authenticateToken,
+  authorizeChildAccess(['parent', 'specialist', 'child']),
+  (req, res) => {
+    const db = getDb();
+    const events = db
+      .prepare(`
+        SELECT
+          e.id,
+          e.child_id AS childId,
+          e.created_by AS createdBy,
+          u.name AS creatorName,
+          u.role AS creatorRole,
+          e.title,
+          e.event_date AS eventDate,
+          e.event_time AS eventTime,
+          e.category,
+          e.created_at AS createdAt
+        FROM events e
+        JOIN users u ON u.id = e.created_by
+        WHERE e.child_id = ?
+        ORDER BY e.event_date ASC, e.event_time ASC, e.id ASC
+      `)
+      .all(req.child.id);
+
+    return res.json({ events });
+  },
+);
+
+router.post(
+  '/:childId/events',
+  authenticateToken,
+  authorizeChildAccess(['parent', 'specialist']),
+  (req, res) => {
+    const { title, eventDate, eventTime, category } = req.body || {};
+
+    if (!title || !eventDate || !eventTime) {
+      return res
+        .status(400)
+        .json({ error: 'Title, eventDate, and eventTime are required' });
+    }
+
+    const cleanTitle = String(title).trim();
+    const cleanDate = String(eventDate).trim();
+    const cleanTime = String(eventTime).trim();
+    const cleanCategory = category ? String(category).trim() : 'general';
+
+    if (!cleanTitle) {
+      return res.status(400).json({ error: 'Title cannot be empty' });
+    }
+
+    const db = getDb();
+    const result = db
+      .prepare(
+        'INSERT INTO events (child_id, created_by, title, event_date, event_time, category) VALUES (?, ?, ?, ?, ?, ?)',
+      )
+      .run(
+        req.child.id,
+        req.user.id,
+        cleanTitle,
+        cleanDate,
+        cleanTime,
+        cleanCategory,
+      );
+
+    const created = db
+      .prepare(`
+        SELECT
+          e.id,
+          e.child_id AS childId,
+          e.created_by AS createdBy,
+          u.name AS creatorName,
+          u.role AS creatorRole,
+          e.title,
+          e.event_date AS eventDate,
+          e.event_time AS eventTime,
+          e.category,
+          e.created_at AS createdAt
+        FROM events e
+        JOIN users u ON u.id = e.created_by
+        WHERE e.id = ?
+      `)
+      .get(result.lastInsertRowid);
+
+    return res.status(201).json({ event: created });
+  },
+);
+
+router.delete(
+  '/:childId/events/:eventId',
+  authenticateToken,
+  authorizeChildAccess(['parent', 'specialist']),
+  (req, res) => {
+    const eventId = Number(req.params.eventId);
+    if (!Number.isInteger(eventId) || eventId <= 0) {
+      return res.status(400).json({ error: 'Invalid event ID' });
+    }
+
+    const db = getDb();
+    const result = db
+      .prepare('DELETE FROM events WHERE id = ? AND child_id = ?')
+      .run(eventId, req.child.id);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'Schedule event not found' });
+    }
+
+    return res.status(204).send();
+  },
+);
+
 module.exports = router;

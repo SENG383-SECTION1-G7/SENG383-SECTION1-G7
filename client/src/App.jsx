@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import SpecialistLinksPanel from './components/SpecialistLinksPanel.jsx';
+import WeeklySchedulePanel from './components/WeeklySchedulePanel.jsx';
 
 const DEMO_ACCOUNTS = [
   { label: 'Parent', email: 'selin.yildiz@example.com' },
@@ -174,6 +175,13 @@ export default function App() {
               >
                 Linked Specialists
               </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'schedule' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('schedule')}
+              >
+                Weekly Schedule
+              </button>
             </nav>
           )}
 
@@ -192,6 +200,32 @@ export default function App() {
                 onClick={() => setActiveTab('children')}
               >
                 Linked Children
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'schedule' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('schedule')}
+              >
+                Weekly Schedule
+              </button>
+            </nav>
+          )}
+
+          {user.role === 'child' && (
+            <nav className="nav-tabs" aria-label="Child navigation">
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'overview' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('overview')}
+              >
+                Overview
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'schedule' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('schedule')}
+              >
+                Weekly Schedule
               </button>
             </nav>
           )}
@@ -261,6 +295,10 @@ export default function App() {
 
           {activeTab === 'children' && user.role === 'specialist' && (
             <SpecialistLinksPanel token={token} role="specialist" />
+          )}
+
+          {activeTab === 'schedule' && (
+            <WeeklySchedulePanel token={token} role={user.role} />
           )}
         </section>
       )}
