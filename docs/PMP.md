@@ -66,6 +66,8 @@
 
 **Jira board screenshot:**  
 
+![Jira board Sprint 2](img/jira-board-sprint2.png)
+
 | Epic / Module | Description | Target Release | Status | Notes / Progress |
 | :--- | :--- | :---: | :---: | :--- |
 | **PMP & Docs** | SRS, SDD v1, PMP-1, PMP-2, PMP-3 | v0.0 / v0.1 | In Progress | SRS, SDD v1, PMP-1/2 completed (`v0.0`); PMP-3 updated in Sprint 2. |
@@ -78,7 +80,7 @@
 | **M7** | Weekly statistics | v0.2 | To Do | Moved to Sprint 3 (`v0.2`). |
 | **M8** | Role-based AI summary | v0.2 | To Do | Base mock service created in `v0.0`; full feature planned for Sprint 3 (`v0.2`). |
 
-**Changes to the plan (if any):**
+**Changes to the plan (if any):** Sprint 1 (`v0.0` Walking Skeleton) was completed on schedule. In Sprint 2, work is focused on **M2** (`SSG123-25`), **M3** (`SSG123-26`), **PMP-3** (`SSG123-27`), and **E2E/M2–M3 tests** (`SSG123-28`) toward the `v0.1` midterm milestone.
 
 ---
 
