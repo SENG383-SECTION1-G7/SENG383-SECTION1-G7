@@ -14,7 +14,7 @@ test.describe('Sprint 2 E2E: M2 Specialist Linking & M3 Weekly Schedule', () => 
 
     await page.getByRole('button', { name: 'Linked Specialists' }).click();
     await expect(
-      page.getByRole('heading', { name: 'Linked Specialists' }),
+      page.getByRole('heading', { name: /^Linked Specialists/ }),
     ).toBeVisible();
 
     await page.getByRole('button', { name: 'Weekly Schedule' }).click();

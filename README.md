@@ -70,3 +70,19 @@ server/     Node.js + Express backend, SQLite schema, seed script, AI service
 docs/       Project documents (SRS, PMP) and images
 .github/    GitHub Actions CI workflow
 ```
+
+## Browser E2E tests (Playwright)
+
+Install dependencies in both folders, then install Chromium and run:
+
+```bash
+npm ci --prefix server
+npm ci --prefix client
+cd client
+npx playwright install chromium
+npm run test:e2e
+```
+
+Stop development servers on ports 3001 and 5173 first. Playwright starts and stops both servers automatically and reseeds a dedicated `server/e2e.sqlite` database on each run. Only synthetic data and AI mock mode are used; no API key is required. The regular development database is untouched.
+
+GitHub Actions runs the Chromium E2E job alongside API and UI tests. Failed runs upload the HTML report and traces as an artifact. Locally, open the report with `npx playwright show-report` from `client/`.
