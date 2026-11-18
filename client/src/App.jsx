@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import SpecialistLinksPanel from './components/SpecialistLinksPanel.jsx';
 import WeeklySchedulePanel from './components/WeeklySchedulePanel.jsx';
+import TasksPanel from './components/TasksPanel.jsx';
 
 const DEMO_ACCOUNTS = [
   { label: 'Parent', email: 'selin.yildiz@example.com' },
@@ -182,6 +183,13 @@ export default function App() {
               >
                 Weekly Schedule
               </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'tasks' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('tasks')}
+              >
+                Tasks
+              </button>
             </nav>
           )}
 
@@ -208,6 +216,13 @@ export default function App() {
               >
                 Weekly Schedule
               </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'tasks' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('tasks')}
+              >
+                Tasks
+              </button>
             </nav>
           )}
 
@@ -226,6 +241,13 @@ export default function App() {
                 onClick={() => setActiveTab('schedule')}
               >
                 Weekly Schedule
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'tasks' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('tasks')}
+              >
+                Tasks
               </button>
             </nav>
           )}
@@ -299,6 +321,10 @@ export default function App() {
 
           {activeTab === 'schedule' && (
             <WeeklySchedulePanel token={token} role={user.role} />
+          )}
+
+          {activeTab === 'tasks' && (
+            <TasksPanel token={token} role={user.role} />
           )}
         </section>
       )}
