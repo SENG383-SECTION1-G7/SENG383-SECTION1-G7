@@ -70,11 +70,11 @@
 
 | Epic / Module | Description | Target Release | Status | Notes / Progress |
 | :--- | :--- | :---: | :---: | :--- |
-| **PMP & Docs** | SRS, SDD v1, PMP-1, PMP-2, PMP-3 | v0.0 / v0.1 | In Progress | SRS, SDD v1, PMP-1/2 completed (`v0.0`); PMP-3 updated in Sprint 2. |
+| **PMP & Docs** | SRS, SDD v1, PMP-1, PMP-2, PMP-3 | v0.0 / v0.1 | Done | SRS, SDD v1, PMP-1/2 completed (`v0.0`); PMP-3 completed in Sprint 2 (`v0.1`). |
 | **M1** | Login and roles (Walking Skeleton) | v0.0 | Done | Completed and merged in Sprint 1 (`v0.0` tag released). |
-| **M2** | Linking specialists & child access guard | v0.1 | In Progress | Scheduled for Sprint 2; backend middleware & linking API in progress. |
-| **M3** | Weekly schedule | v0.1 | In Progress | Scheduled for Sprint 2; `GET/POST /api/children/:childId/events` & weekly UI. |
-| **M4** | Tasks | v0.1 | To Do | Moved to Sprint 2 (`v0.1`) to cover Midterm demo scope (`M1–M4`). |
+| **M2** | Linking specialists & child access guard | v0.1 | Done | Completed and merged in Sprint 2 (`SSG123-25`). |
+| **M3** | Weekly schedule | v0.1 | Done | Completed and merged in Sprint 2 (`SSG123-26`). |
+| **M4** | Tasks | v0.1 | Done | Completed in Sprint 2 (`SSG123-29`) to cover full `v0.1` Midterm release scope (`M1–M4`). |
 | **M5** | Specialist entries | v0.2 | To Do | Planned for Sprint 3 (`v0.2`). |
 | **M6** | Documents | v0.2 | To Do | Planned for Sprint 3 (`v0.2`). |
 | **M7** | Weekly statistics | v0.2 | To Do | Moved to Sprint 3 (`v0.2`). |

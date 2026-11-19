@@ -130,4 +130,61 @@ describe('M2 & M3 UI flows (Specialist Linking & Weekly Schedule)', () => {
 
     expect(await screen.findByText('Speech Therapy Session')).toBeTruthy();
   });
+
+  it('allows child to view Tasks tab and mark a pending task as done', async () => {
+    fetch
+      .mockResolvedValueOnce(
+        response({
+          token: 'child-token',
+          user: { name: 'Deniz Yıldız', email: 'deniz.yildiz@example.com', role: 'child' },
+        }),
+      )
+      .mockResolvedValueOnce(
+        response({
+          children: [{ id: 1, name: 'Deniz Yıldız', age: 8, grade: '2nd Grade' }],
+        }),
+      )
+      .mockResolvedValueOnce(
+        response({
+          tasks: [
+            {
+              id: 21,
+              childId: 1,
+              title: 'Daily Reading Practice',
+              description: 'Read 10 pages',
+              developmentArea: 'language',
+              dueDate: '2026-04-22',
+              status: 'pending',
+              assignerName: 'Murat Kaya',
+            },
+          ],
+        }),
+      )
+      .mockResolvedValueOnce(
+        response({
+          task: {
+            id: 21,
+            childId: 1,
+            title: 'Daily Reading Practice',
+            description: 'Read 10 pages',
+            developmentArea: 'language',
+            dueDate: '2026-04-22',
+            status: 'done',
+            assignerName: 'Murat Kaya',
+          },
+        }),
+      );
+
+    render(<App />);
+    signIn('Child');
+
+    const tasksTab = await screen.findByRole('button', { name: 'Tasks' });
+    fireEvent.click(tasksTab);
+
+    expect(await screen.findByText('Daily Reading Practice')).toBeTruthy();
+    fireEvent.click(screen.getByRole('button', { name: 'Mark as Done' }));
+
+    expect(await screen.findByText('Task marked as done')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: 'Mark as Done' })).toBeNull();
+  });
 });

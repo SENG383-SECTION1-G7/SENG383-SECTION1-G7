@@ -277,4 +277,148 @@ router.delete(
   },
 );
 
+router.get(
+  '/:childId/tasks',
+  authenticateToken,
+  authorizeChildAccess(['parent', 'specialist', 'child']),
+  (req, res) => {
+    const db = getDb();
+    const tasks = db
+      .prepare(`
+        SELECT
+          t.id,
+          t.child_id AS childId,
+          t.assigned_by AS assignedBy,
+          u.name AS assignerName,
+          u.role AS assignerRole,
+          t.title,
+          t.description,
+          t.development_area AS developmentArea,
+          t.due_date AS dueDate,
+          t.status,
+          t.completed_at AS completedAt,
+          t.created_at AS createdAt
+        FROM tasks t
+        JOIN users u ON u.id = t.assigned_by
+        WHERE t.child_id = ?
+        ORDER BY t.due_date ASC, t.id ASC
+      `)
+      .all(req.child.id);
+
+    return res.json({ tasks });
+  },
+);
+
+router.post(
+  '/:childId/tasks',
+  authenticateToken,
+  authorizeChildAccess(['parent', 'specialist']),
+  (req, res) => {
+    const { title, description, developmentArea, dueDate } = req.body || {};
+
+    if (!title || !developmentArea || !dueDate) {
+      return res.status(400).json({
+        error: 'Title, developmentArea, and dueDate are required',
+      });
+    }
+
+    const cleanTitle = String(title).trim();
+    const cleanDescription = description ? String(description).trim() : '';
+    const cleanArea = String(developmentArea).trim();
+    const cleanDueDate = String(dueDate).trim();
+
+    if (!cleanTitle || !cleanArea || !cleanDueDate) {
+      return res.status(400).json({
+        error: 'Title, developmentArea, and dueDate cannot be empty',
+      });
+    }
+
+    const db = getDb();
+    const result = db
+      .prepare(
+        'INSERT INTO tasks (child_id, assigned_by, title, description, development_area, due_date, status) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      )
+      .run(
+        req.child.id,
+        req.user.id,
+        cleanTitle,
+        cleanDescription,
+        cleanArea,
+        cleanDueDate,
+        'pending',
+      );
+
+    const created = db
+      .prepare(`
+        SELECT
+          t.id,
+          t.child_id AS childId,
+          t.assigned_by AS assignedBy,
+          u.name AS assignerName,
+          u.role AS assignerRole,
+          t.title,
+          t.description,
+          t.development_area AS developmentArea,
+          t.due_date AS dueDate,
+          t.status,
+          t.completed_at AS completedAt,
+          t.created_at AS createdAt
+        FROM tasks t
+        JOIN users u ON u.id = t.assigned_by
+        WHERE t.id = ?
+      `)
+      .get(result.lastInsertRowid);
+
+    return res.status(201).json({ task: created });
+  },
+);
+
+router.patch(
+  '/:childId/tasks/:taskId',
+  authenticateToken,
+  authorizeChildAccess(['child']),
+  (req, res) => {
+    const taskId = Number(req.params.taskId);
+    if (!Number.isInteger(taskId) || taskId <= 0) {
+      return res.status(400).json({ error: 'Invalid task ID' });
+    }
+
+    const db = getDb();
+    const existing = db
+      .prepare('SELECT id FROM tasks WHERE id = ? AND child_id = ?')
+      .get(taskId, req.child.id);
+
+    if (!existing) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    db.prepare(
+      "UPDATE tasks SET status = 'done', completed_at = datetime('now') WHERE id = ? AND child_id = ?",
+    ).run(taskId, req.child.id);
+
+    const updated = db
+      .prepare(`
+        SELECT
+          t.id,
+          t.child_id AS childId,
+          t.assigned_by AS assignedBy,
+          u.name AS assignerName,
+          u.role AS assignerRole,
+          t.title,
+          t.description,
+          t.development_area AS developmentArea,
+          t.due_date AS dueDate,
+          t.status,
+          t.completed_at AS completedAt,
+          t.created_at AS createdAt
+        FROM tasks t
+        JOIN users u ON u.id = t.assigned_by
+        WHERE t.id = ?
+      `)
+      .get(taskId);
+
+    return res.json({ task: updated });
+  },
+);
+
 module.exports = router;
