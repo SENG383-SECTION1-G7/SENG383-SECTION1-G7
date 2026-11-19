@@ -21,5 +21,10 @@ test.describe('Sprint 2 E2E: M2 Specialist Linking & M3 Weekly Schedule', () => 
     await expect(
       page.getByRole('heading', { name: 'Weekly Schedule' }),
     ).toBeVisible();
+
+    await page.getByRole('button', { name: 'Tasks' }).click();
+    await expect(
+      page.getByRole('heading', { name: 'Tasks' }),
+    ).toBeVisible();
   });
 });
