@@ -61,7 +61,7 @@ test.describe('Sprint 3 E2E: 3 Critical Flows (v0.2)', () => {
     await page.getByRole('button', { name: 'Demo: Parent' }).click();
     await page.getByRole('button', { name: 'Sign in', exact: true }).click();
 
-    await page.getByRole('button', { name: 'AI Summary' }).click();
+    await page.getByRole('button', { name: 'AI Summary', exact: true }).click();
     await page
       .getByRole('button', { name: 'Generate Weekly AI Summary' })
       .click();
