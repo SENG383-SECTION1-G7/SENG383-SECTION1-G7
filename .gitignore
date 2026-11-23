@@ -6,4 +6,5 @@ coverage/
 *.db
 playwright-report/
 test-results/
+server/uploads/
 .DS_Store
