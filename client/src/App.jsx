@@ -5,6 +5,8 @@ import WeeklySchedulePanel from './components/WeeklySchedulePanel.jsx';
 import TasksPanel from './components/TasksPanel.jsx';
 import SpecialistEntriesPanel from './components/SpecialistEntriesPanel.jsx';
 import DocumentsPanel from './components/DocumentsPanel.jsx';
+import StatisticsPanel from './components/StatisticsPanel.jsx';
+import AiSummaryPanel from './components/AiSummaryPanel.jsx';
 
 const DEMO_ACCOUNTS = [
   { label: 'Parent', email: 'selin.yildiz@example.com' },
@@ -206,6 +208,20 @@ export default function App() {
               >
                 Documents
               </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'statistics' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('statistics')}
+              >
+                Statistics
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'ai-summary' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('ai-summary')}
+              >
+                AI Summary
+              </button>
             </nav>
           )}
 
@@ -252,6 +268,20 @@ export default function App() {
                 onClick={() => setActiveTab('documents')}
               >
                 Documents
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'statistics' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('statistics')}
+              >
+                Statistics
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'ai-summary' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('ai-summary')}
+              >
+                AI Summary
               </button>
             </nav>
           )}
@@ -369,6 +399,16 @@ export default function App() {
           {activeTab === 'documents' &&
             (user.role === 'parent' || user.role === 'specialist') && (
               <DocumentsPanel token={token} />
+            )}
+
+          {activeTab === 'statistics' &&
+            (user.role === 'parent' || user.role === 'specialist') && (
+              <StatisticsPanel token={token} />
+            )}
+
+          {activeTab === 'ai-summary' &&
+            (user.role === 'parent' || user.role === 'specialist') && (
+              <AiSummaryPanel token={token} />
             )}
         </section>
       )}
