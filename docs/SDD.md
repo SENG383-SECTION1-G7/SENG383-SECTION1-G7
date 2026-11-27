@@ -1,10 +1,10 @@
 # Software Design Document (SDD)
 
 **Team name:** SENG383-SECTION1-G7  
-**Version:** ☒ First version (Week 6) ☐ Final (Week 10)  
-**Last updated:** 2026-11-04
+**Version:** ☐ First version (Week 6) ☒ Final (v1.0)  
+**Last updated:** 2026-11-27
 
-This first design version traces the requirements in `SRS.md` to the walking skeleton and the planned M1–M8 implementation. **Implemented** means present in the SSG123-22 skeleton; **planned** means a design contract for later increments, not an available feature. SSG123-24 adds automated checks and mandatory test-mode AI isolation.
+This final design document reflects the complete `v1.0` implementation of all eight mandatory modules (**M1–M8**), enforced per-child access control (`authorizeChildAccess`), deterministic AI mock & Gemini integration, automated backend/frontend unit & integration tests (**65.68% server branch coverage**), and full **Playwright E2E tests covering M1–M8** in GitHub Actions CI.
 
 ## 1. Architecture Overview
 
@@ -37,14 +37,14 @@ Local execution follows README install, seed and dev commands. Only synthetic se
 
 | Module | Main components | Implements requirements |
 |---|---|---|
-| M1 | Implemented: `App.jsx` login and role views; `routes/auth.js`, `middleware/auth.js`; bcrypt password verification and account-derived JWT role. Screen coverage grows with later modules. | FR-M1-01, FR-M1-02, FR-M1-03 |
-| M2 | Implemented: `specialist_links` table and current-link check for AI preview. Planned: specialist linking/list/unlink UI and shared per-child access guard for every data route. | FR-M2-01–FR-M2-05 |
-| M3 | Implemented: `events` schema and synthetic event. Planned: weekly calendar and event create/list handlers. | FR-M3-01–FR-M3-03 |
-| M4 | Implemented: `tasks` schema and synthetic pending/done tasks. Planned: task assignment form, own-task list/completion action and assigner view. | FR-M4-01–FR-M4-03 |
-| M5 | Implemented: `specialist_entries` schema and seed observation. Planned: entry editor/list, author ownership check and edited indicator. | FR-M5-01–FR-M5-03 |
-| M6 | Implemented: `documents` metadata schema. Planned: validated upload, private file storage and authorized list/view/download handlers. | FR-M6-01–FR-M6-03 |
-| M7 | Planned: statistics query/service and weekly dashboard, using task due dates and completion status. | FR-M7-01, FR-M7-02 |
-| M8 | Implemented: `routes/ai.js`, `services/aiService.js`, role prompts and mock preview. Planned: selected-week filtering, source links, summary persistence and feedback UI/API. | FR-M8-01–FR-M8-04 |
+| M1 | Implemented: `App.jsx` login and role views; `routes/auth.js`, `middleware/auth.js`; bcrypt password verification and account-derived JWT role. | FR-M1-01, FR-M1-02, FR-M1-03 |
+| M2 | Implemented: `specialist_links` table, `middleware/childAccess.js` (`authorizeChildAccess`), `routes/children.js`, `SpecialistLinksPanel.jsx` (link/list/unlink with confirmation). | FR-M2-01–FR-M2-05 |
+| M3 | Implemented: `events` schema, `GET/POST/DELETE /api/children/:childId/events`, `WeeklySchedulePanel.jsx`. | FR-M3-01–FR-M3-03 |
+| M4 | Implemented: `tasks` schema, `GET/POST /api/children/:childId/tasks`, `PATCH /api/children/:childId/tasks/:taskId`, `TasksPanel.jsx`. | FR-M4-01–FR-M4-03 |
+| M5 | Implemented: `specialist_entries` schema, `routes/entriesAndDocs.js`, `SpecialistEntriesPanel.jsx` (dated observations, author-only edit with `edited` badge, blocked for child). | FR-M5-01–FR-M5-03 |
+| M6 | Implemented: `documents` schema, `routes/entriesAndDocs.js` (`multer` PDF/image validation, 415 on unsupported types, authorized download), `DocumentsPanel.jsx`. | FR-M6-01–FR-M6-03 |
+| M7 | Implemented: `routes/statsAndSummaries.js` (`GET /api/children/:childId/statistics`), `StatisticsPanel.jsx` (overall and per-development-area completion rates). | FR-M7-01, FR-M7-02 |
+| M8 | Implemented: `routes/statsAndSummaries.js` (`GET/POST /api/children/:childId/summaries`, `PATCH .../feedback`), `services/aiService.js` (`mock` and `gemini` modes), `AiSummaryPanel.jsx`. | FR-M8-01–FR-M8-04 |
 
 ### Access and validation design
 
