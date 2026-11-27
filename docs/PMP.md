@@ -88,12 +88,22 @@
 
 **Jira board screenshot:**  
 
-| Epic | Planned for this point | Status (Done / In progress / Not started) |
-|---|---|---|
-| | | |
-| | | |
+*(Sprint 3 board screenshot will be refreshed after Sprint 3 issues `SSG123-31`–`SSG123-34` are marked Done on Jira.)*
 
-**Changes to the plan (if any):**
+| Epic / Module | Planned for this point (`v0.2`) | Status | Notes / Progress |
+| :--- | :--- | :---: | :--- |
+| **PMP & Docs** | PMP-4 Progress Review | Done | Updated in Week 9 (`SSG123-31`) ahead of `v0.2` release. |
+| **M1** | Login and roles | Done | Completed in `v0.0` and verified in `v0.1` midterm live demo. |
+| **M2** | Linking specialists & child access guard | Done | Completed in `v0.1` (`SSG123-25`). |
+| **M3** | Weekly schedule | Done | Completed in `v0.1` (`SSG123-26`). |
+| **M4** | Tasks (assignment & child completion) | Done | Completed in `v0.1` (`SSG123-29`, `SSG123-30`) and tagged `v0.1`. |
+| **M5** | Specialist entries (dated observations & edited mark) | In Progress | Scheduled for Sprint 3 (`SSG123-32`). |
+| **M6** | Documents (PDF/image upload & download) | In Progress | Scheduled for Sprint 3 (`SSG123-32`). |
+| **M7** | Weekly statistics (total & by development area) | In Progress | Scheduled for Sprint 3 (`SSG123-33`). |
+| **M8** | Role-based AI summary (persistence, source links & feedback) | In Progress | Scheduled for Sprint 3 (`SSG123-33`). |
+| **Testing & CI** | Branch coverage ≥ 40% & 3 critical E2E flows in Playwright | In Progress | Scheduled for Sprint 3 (`SSG123-34`); server branch coverage already > 65%. |
+
+**Changes to the plan (if any):** `Release v0.1 (M1–M4)` was completed and tagged on schedule after the Week 8 live demo. Sprint 3 focuses on delivering **M5–M8** (`SSG123-32`, `SSG123-33`) and the 3 critical Playwright E2E flows (`SSG123-34`) for the Week 10 `v0.2` milestone.
 
 ---
 
