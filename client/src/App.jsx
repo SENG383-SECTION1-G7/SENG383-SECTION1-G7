@@ -3,6 +3,8 @@ import './App.css';
 import SpecialistLinksPanel from './components/SpecialistLinksPanel.jsx';
 import WeeklySchedulePanel from './components/WeeklySchedulePanel.jsx';
 import TasksPanel from './components/TasksPanel.jsx';
+import SpecialistEntriesPanel from './components/SpecialistEntriesPanel.jsx';
+import DocumentsPanel from './components/DocumentsPanel.jsx';
 
 const DEMO_ACCOUNTS = [
   { label: 'Parent', email: 'selin.yildiz@example.com' },
@@ -190,6 +192,20 @@ export default function App() {
               >
                 Tasks
               </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'entries' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('entries')}
+              >
+                Entries
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'documents' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('documents')}
+              >
+                Documents
+              </button>
             </nav>
           )}
 
@@ -222,6 +238,20 @@ export default function App() {
                 onClick={() => setActiveTab('tasks')}
               >
                 Tasks
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'entries' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('entries')}
+              >
+                Entries
+              </button>
+              <button
+                type="button"
+                className={`btn-secondary ${activeTab === 'documents' ? 'tab-active' : ''}`}
+                onClick={() => setActiveTab('documents')}
+              >
+                Documents
               </button>
             </nav>
           )}
@@ -326,6 +356,20 @@ export default function App() {
           {activeTab === 'tasks' && (
             <TasksPanel token={token} role={user.role} />
           )}
+
+          {activeTab === 'entries' &&
+            (user.role === 'parent' || user.role === 'specialist') && (
+              <SpecialistEntriesPanel
+                token={token}
+                role={user.role}
+                userId={user.id}
+              />
+            )}
+
+          {activeTab === 'documents' &&
+            (user.role === 'parent' || user.role === 'specialist') && (
+              <DocumentsPanel token={token} />
+            )}
         </section>
       )}
     </main>
