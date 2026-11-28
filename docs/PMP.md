@@ -111,16 +111,31 @@
 
 **Jira board screenshot:**  
 
-| Epic | Planned for this point | Status (Done / In progress / Not started) |
-|---|---|---|
-| | | |
-| | | |
+![Jira board Sprint 2](img/jira-board-sprint2.png)
 
-**Changes to the plan (if any):**
+| Epic / Module | Planned for Final (`v1.0`) | Status | Notes / Progress |
+| :--- | :--- | :---: | :--- |
+| **PMP & Docs** | SRS, SDD Final, PMP-1..PMP-6, Final Report | Done | All documentation finalized (`SSG123-36`, `SSG123-37`). |
+| **M1** | Login and roles | Done | JWT authentication & role isolation verified in unit & E2E tests. |
+| **M2** | Linking specialists & child access guard | Done | Parent links/unlinks specialists; `authorizeChildAccess` enforces 403 for unlinked users. |
+| **M3** | Weekly schedule | Done | Shared weekly events API & UI (`SSG123-26`). |
+| **M4** | Tasks | Done | Task assignment by parent/specialist & completion by child (`SSG123-29`, `SSG123-30`). |
+| **M5** | Specialist entries | Done | Dated observations, author-only editing with `edited` badge, blocked for child (`SSG123-32`). |
+| **M6** | Documents | Done | Validated PDF/image upload & authorized download, blocked for child (`SSG123-32`). |
+| **M7** | Weekly statistics | Done | Total and per-area task completion rates (`SSG123-33`). |
+| **M8** | Role-based AI summary | Done | Separate parent/specialist prompts, `AI-generated` label, source links & `helpful`/`incorrect` feedback (`SSG123-33`). |
+| **Testing & CI** | Branch coverage ≥ 60% & E2E test for each of M1–M8 | Done | Server branch coverage **65.68%** (32 Jest tests), 14 Vitest tests, and full Playwright E2E suite for M1–M8 (`SSG123-35`). |
+
+**Changes to the plan (if any):** All eight mandatory modules (`M1–M8`), full `M1–M8` Playwright E2E tests, SDD Final, PMP-5/6, and Final Report were completed ahead of the Week 12 deadline for `Release v1.0`.
 
 ---
 
 ## PMP-6. Retrospective
 
-- What worked well in using Jira:
-- What we would do differently:
+- **What worked well in using Jira:**
+  - Linking every GitHub branch and Pull Request directly to a Jira issue key (`SSG123-17` through `SSG123-37`) provided full traceability from requirements to code and tests.
+  - Breaking work into incremental releases (`v0.0` Walking Skeleton → `v0.1` M1–M4 → `v0.2` M5–M8 → `v1.0` Final) kept PRs small, reviewable, and continuously verified by GitHub Actions CI.
+  - Enforcing branch protection (PR + peer approval + green Jest/Vitest/Playwright CI) prevented broken builds from ever reaching `main`.
+- **What we would do differently:**
+  - Update Jira issue statuses (`In Progress` / `Done`) immediately when merging PRs so completed sprint items do not roll over into the next sprint.
+  - Agree earlier on exact API response shapes and test selectors before parallel frontend/backend work to avoid small CI selector adjustments.
